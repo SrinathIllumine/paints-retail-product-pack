@@ -61,7 +61,7 @@ function Index() {
   return (
     <main className="flex h-screen flex-col gap-4 overflow-hidden bg-background p-4 sm:p-6">
       <header className="shrink-0 text-center">
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-primary">Paints</p>
+        <p className="text-lg font-medium uppercase tracking-[0.2em] text-primary">Paints</p>
         <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
           Retail Product Pack
         </h1>
@@ -78,7 +78,7 @@ function Index() {
                     src={s.image}
                     alt={`${s.title} preview`}
                     loading="lazy"
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-contain"
                   />
                 ) : (
                   <span className="text-center text-[10px] uppercase tracking-widest text-muted-foreground">
