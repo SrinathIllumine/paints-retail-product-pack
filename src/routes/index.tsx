@@ -59,20 +59,20 @@ const systems: System[] = [
 
 function Index() {
   return (
-    <main className="min-h-screen bg-background px-6 py-16">
-      <header className="mx-auto max-w-6xl text-center">
-        <p className="text-sm font-medium uppercase tracking-[0.2em] text-primary">Paints</p>
-        <h1 className="mt-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+    <main className="flex h-screen flex-col gap-4 overflow-hidden bg-background p-4 sm:p-6">
+      <header className="shrink-0 text-center">
+        <p className="text-xs font-medium uppercase tracking-[0.2em] text-primary">Paints</p>
+        <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
           Retail Product Pack
         </h1>
-        <p className="mt-3 text-muted-foreground">Select a system to open its demo</p>
+        <p className="text-xs text-muted-foreground">Select a system to open its demo</p>
       </header>
 
-      <section className="mx-auto mt-12 grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="grid min-h-0 flex-1 grid-cols-2 grid-rows-3 gap-3 sm:grid-cols-3 sm:grid-rows-2 sm:gap-4">
         {systems.map((s) => {
           const inner = (
-            <div className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:shadow-lg">
-              <div className="flex aspect-[16/9] items-center justify-center overflow-hidden bg-muted">
+            <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all group-hover:border-primary/40 group-hover:shadow-md">
+              <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-muted">
                 {s.image ? (
                   <img
                     src={s.image}
@@ -81,16 +81,20 @@ function Index() {
                     className="h-full w-full object-cover"
                   />
                 ) : (
-                  <span className="text-xs uppercase tracking-widest text-muted-foreground">
+                  <span className="text-center text-[10px] uppercase tracking-widest text-muted-foreground">
                     Preview coming soon
                   </span>
                 )}
               </div>
-              <div className="flex flex-1 flex-col gap-2 p-5">
-                <h2 className="text-lg font-semibold text-card-foreground">{s.title}</h2>
-                <p className="text-sm leading-relaxed text-muted-foreground">{s.description}</p>
+              <div className="flex shrink-0 flex-col gap-1 p-3">
+                <h2 className="line-clamp-2 text-sm font-semibold leading-tight text-card-foreground">
+                  {s.title}
+                </h2>
+                <p className="line-clamp-2 text-xs leading-snug text-muted-foreground">
+                  {s.description}
+                </p>
                 {s.link && (
-                  <span className="mt-auto pt-4 text-sm font-medium text-primary">Open demo →</span>
+                  <span className="mt-1 text-xs font-medium text-primary">Open demo →</span>
                 )}
               </div>
             </div>
@@ -102,12 +106,12 @@ function Index() {
               href={s.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group block"
+              className="group block min-h-0"
             >
               {inner}
             </a>
           ) : (
-            <div key={s.title} className="group cursor-default opacity-60">
+            <div key={s.title} className="group min-h-0 cursor-default opacity-60">
               {inner}
             </div>
           );
