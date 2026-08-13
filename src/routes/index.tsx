@@ -2,6 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import meImg from "@/assets/image.png.asset.json";
 import marketImg from "@/assets/image-2.png.asset.json";
 import counsellingImg from "@/assets/image-3.png.asset.json";
+import bestPracticesImg from "@/assets/best-practices.png";
+import scalableCoachingImg from "@/assets/scalable-coaching.png";
+import flashpointsImg from "@/assets/flashpoints.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -52,9 +55,9 @@ const systems: System[] = [
     image: counsellingImg.url,
     link: "https://bpcl-ro-counsellingtool.lovable.app/",
   },
-  { title: "Retailer Best Practices System", description: "Coming soon" },
-  { title: "Scalable Coaching System", description: "Coming soon" },
-  { title: "Flashpoints Management System", description: "Coming soon" },
+  { title: "Retailer Best Practices System", description: "Coming soon", image: bestPracticesImg },
+  { title: "Scalable Coaching System", description: "Coming soon", image: scalableCoachingImg },
+  { title: "Flashpoints Management System", description: "Coming soon", image: flashpointsImg },
 ];
 
 function Index() {
