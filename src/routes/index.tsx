@@ -81,10 +81,13 @@ const mapSystems: { top: MapSystem[]; bottom: MapSystem } = {
     {
       title: "Retailer Business Improvement System",
       image: bestPracticesImg,
-      link: "https://paints-market-discovery-system.lovable.app/",
     },
   ],
-  bottom: { title: "Systematic Engagement & Discovery System", image: marketImg.url },
+  bottom: {
+    title: "Systematic Engagement & Discovery System",
+    image: marketImg.url,
+    link: "https://paints-market-discovery-system.lovable.app/",
+  },
 };
 
 function Index() {
@@ -128,8 +131,10 @@ function ModelBox({ model, className }: { model: MapSystem; className?: string }
   const content = (
     <div
       className={cn(
-        "group relative flex h-full min-h-[86px] w-full flex-col items-center justify-start overflow-hidden rounded-xl border-2 border-amber-400 bg-white p-2 pt-3 text-center shadow-sm transition-all",
-        model.link && "hover:-translate-y-0.5 hover:shadow-md",
+        "group relative flex h-full min-h-[92px] w-full flex-col overflow-hidden rounded-2xl border-2 border-amber-400 bg-white shadow-[0_2px_10px_-2px_rgba(0,0,0,0.12)] ring-1 ring-amber-100 transition-all",
+        model.link
+          ? "hover:-translate-y-1 hover:border-amber-500 hover:shadow-[0_10px_24px_-6px_rgba(217,119,6,0.35)]"
+          : "opacity-90",
         className,
       )}
     >
@@ -138,25 +143,41 @@ function ModelBox({ model, className }: { model: MapSystem; className?: string }
           src={model.image}
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover opacity-40"
+          className="absolute inset-0 h-full w-full object-cover opacity-90 transition-transform duration-300 group-hover:scale-105"
         />
       )}
-      <span className="relative z-10 text-[11px] font-bold leading-snug text-neutral-900 [text-shadow:0_1px_2px_rgba(255,255,255,0.8)] sm:text-xs">
-        {model.title}
+      <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/10 to-transparent" />
+      <span className="absolute bottom-2 right-2 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-amber-400 shadow-sm">
+        <ChevronRight className="h-3.5 w-3.5 text-white" strokeWidth={2.5} />
       </span>
-      <ChevronRight className="absolute bottom-1 right-1 z-10 h-4 w-4 text-amber-500 drop-shadow" />
+      {model.link && (
+        <span className="absolute bottom-2 left-2.5 z-10 rounded-full bg-primary/90 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-primary-foreground shadow-sm">
+          Open demo
+        </span>
+      )}
     </div>
   );
 
-  if (model.link) {
-    return (
-      <a href={model.link} target="_blank" rel="noopener noreferrer" className="block h-full">
-        {content}
-      </a>
-    );
-  }
-
-  return <div className="h-full cursor-default">{content}</div>;
+  return (
+    <div className="flex h-full flex-col gap-2">
+      <h3 className="flex items-start justify-center gap-1.5 text-center text-[11px] font-bold leading-tight text-foreground sm:text-xs">
+        <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-400" />
+        {model.title}
+      </h3>
+      {model.link ? (
+        <a
+          href={model.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block flex-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        >
+          {content}
+        </a>
+      ) : (
+        <div className="flex-1 cursor-default">{content}</div>
+      )}
+    </div>
+  );
 }
 
 function PersonNode({
@@ -167,25 +188,44 @@ function PersonNode({
   connectRight?: boolean;
 }) {
   return (
-    <div className="relative flex flex-col items-center gap-1 text-center">
-      <User className="h-7 w-7 shrink-0 text-primary sm:h-8 sm:w-8" strokeWidth={1.75} />
+    <div className="relative flex flex-col items-center gap-1.5 text-center">
+      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary/10 shadow-sm ring-2 ring-primary/20 sm:h-12 sm:w-12">
+        <User className="h-5 w-5 text-primary sm:h-6 sm:w-6" strokeWidth={1.75} />
+      </span>
       <span className="text-[10px] font-semibold leading-tight text-foreground sm:text-xs">
         {label}
       </span>
-      {connectRight && (
-        <ArrowLeftRight
-          className="absolute right-0 top-3 h-4 w-4 -translate-y-1/2 translate-x-1/2 text-muted-foreground/60"
-          strokeWidth={1.5}
-        />
+      {connectRight && <FlowDot className="right-0 top-5 -translate-y-1/2 translate-x-1/2" />}
+    </div>
+  );
+}
+
+function FlowDot({ className }: { className?: string }) {
+  return (
+    <span
+      className={cn(
+        "pointer-events-none absolute z-10 flex h-6 w-6 items-center justify-center rounded-full border-2 border-amber-300 bg-background shadow-sm",
+        className,
       )}
+    >
+      <ArrowLeftRight className="h-3 w-3 text-amber-500" strokeWidth={2.25} />
+    </span>
+  );
+}
+
+function FlowDown({ className }: { className?: string }) {
+  return (
+    <div className={cn("flex flex-col items-center py-1", className)}>
+      <div className="h-3 w-px bg-gradient-to-b from-transparent to-amber-300" />
+      <ArrowDown className="-mt-0.5 h-4 w-4 text-amber-400" strokeWidth={2} />
     </div>
   );
 }
 
 function EngagementMapView() {
   return (
-    <section className="min-h-0 flex-1 overflow-auto rounded-xl border border-border bg-muted/30 p-3 sm:p-6">
-      <div className="mx-auto grid min-w-[640px] max-w-4xl grid-cols-[1fr_1fr_1fr_1.15fr] gap-x-4 sm:gap-x-6">
+    <section className="min-h-0 flex-1 overflow-auto rounded-2xl border border-border bg-gradient-to-br from-muted/70 via-background to-primary/5 p-4 shadow-inner sm:p-8">
+      <div className="mx-auto grid min-w-[680px] max-w-4xl grid-cols-[1fr_1fr_1fr_1.15fr] gap-x-4 sm:gap-x-6">
         {/* row 1: top boxes, each in its own column */}
         <div className="col-start-1 row-start-1">
           <ModelBox model={mapSystems.top[0]} />
@@ -198,22 +238,22 @@ function EngagementMapView() {
         </div>
 
         {/* customer ecosystem column, spanning the people rows */}
-        <div className="col-start-4 row-span-6 row-start-1 flex flex-col items-center justify-center gap-2">
-          <span className="text-center text-[10px] font-semibold italic tracking-wide text-muted-foreground sm:text-xs">
-            CUSTOMER ECOSYSTEM
+        <div className="col-start-4 row-span-6 row-start-1 flex flex-col items-center justify-center gap-3">
+          <span className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-center text-[10px] font-bold italic tracking-wide text-primary sm:text-xs">
+            Customer Ecosystem
           </span>
           <EcosystemCluster />
         </div>
 
         {/* row 2: down arrows into the ASM / ME / Dealer chain */}
-        <div className="col-start-1 row-start-2 flex justify-center py-1">
-          <ArrowDown className="h-4 w-4 text-muted-foreground/60" />
+        <div className="col-start-1 row-start-2">
+          <FlowDown className="items-center justify-center" />
         </div>
-        <div className="col-start-2 row-start-2 flex justify-center py-1">
-          <ArrowDown className="h-4 w-4 text-muted-foreground/60" />
+        <div className="col-start-2 row-start-2">
+          <FlowDown className="items-center justify-center" />
         </div>
-        <div className="col-start-3 row-start-2 flex justify-center py-1">
-          <ArrowDown className="h-4 w-4 text-muted-foreground/60" />
+        <div className="col-start-3 row-start-2">
+          <FlowDown className="items-center justify-center" />
         </div>
 
         {/* row 3: ASM -> ME -> Dealer/Retailer -> Pull, each node in its own matching column */}
@@ -226,14 +266,16 @@ function EngagementMapView() {
         <div className="col-start-3 row-start-3 flex justify-center">
           <PersonNode label="Dealer / Retailer" connectRight />
         </div>
-        <div className="col-start-4 row-start-3 flex flex-col items-center gap-1 self-start">
-          <ArrowLeftRight className="h-4 w-4 text-muted-foreground/60" strokeWidth={1.5} />
-          <span className="text-[10px] italic text-muted-foreground">Pull</span>
+        <div className="col-start-4 row-start-3 flex flex-col items-center gap-1 self-start pl-2">
+          <ArrowLeftRight className="h-4 w-4 text-primary/60" strokeWidth={1.75} />
+          <span className="text-[10px] font-semibold italic text-muted-foreground">Pull</span>
         </div>
 
         {/* row 4: vertical double arrow, aligned under Dealer/Retailer */}
         <div className="col-start-3 row-start-4 flex justify-center py-1">
-          <ArrowUpDown className="h-4 w-4 text-muted-foreground/60" />
+          <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-amber-300 bg-background shadow-sm">
+            <ArrowUpDown className="h-4 w-4 text-amber-500" strokeWidth={2} />
+          </span>
         </div>
 
         {/* row 5: Demand Generator -> Contractors/Painters, under ME / Dealer columns */}
@@ -245,17 +287,18 @@ function EngagementMapView() {
         </div>
 
         {/* row 6: arrow up into Demand Generator */}
-        <div className="col-start-2 row-start-6 flex justify-center py-1">
-          <ArrowUp className="h-4 w-4 text-muted-foreground/60" />
+        <div className="col-start-2 row-start-6 flex flex-col items-center justify-center py-1">
+          <ArrowUp className="mb-0.5 h-4 w-4 text-amber-400" strokeWidth={2} />
+          <div className="h-3 w-px bg-gradient-to-t from-transparent to-amber-300" />
         </div>
 
         {/* row 7: bottom model box under Demand Generator, reaching toward the ecosystem */}
-        <div className="col-span-2 col-start-2 row-start-7 flex items-center gap-2 pt-1">
-          <ModelBox model={mapSystems.bottom} className="min-h-[72px] flex-1" />
+        <div className="col-span-2 col-start-2 row-start-7 flex items-end gap-2 pt-1">
+          <ModelBox model={mapSystems.bottom} className="min-h-[72px]" />
         </div>
-        <div className="col-start-4 row-start-7 flex items-center justify-center gap-1 self-center">
-          <div className="h-px w-4 bg-muted-foreground/40" />
-          <ArrowLeftRight className="h-4 w-4 shrink-0 text-muted-foreground/60" strokeWidth={1.5} />
+        <div className="col-start-4 row-start-7 flex items-center justify-center gap-1 self-center pb-2">
+          <div className="h-px w-4 bg-gradient-to-r from-amber-300 to-transparent" />
+          <ArrowLeftRight className="h-4 w-4 shrink-0 text-primary/60" strokeWidth={1.75} />
         </div>
       </div>
     </section>
@@ -264,16 +307,21 @@ function EngagementMapView() {
 
 function EcosystemCluster() {
   return (
-    <div className="relative flex h-full min-h-[220px] w-full items-center justify-center rounded-[50%] bg-neutral-200/70 p-4">
-      <div className="grid grid-cols-3 gap-x-1 gap-y-2 opacity-70">
+    <div className="relative flex h-full min-h-[220px] w-full items-center justify-center rounded-full bg-[radial-gradient(circle_at_50%_35%,var(--color-background),var(--color-muted))] p-4 shadow-inner ring-1 ring-border">
+      <div className="grid grid-cols-3 gap-x-2 gap-y-3">
         {Array.from({ length: 9 }).map((_, i) => (
-          <Users key={i} className="h-4 w-4 text-neutral-500" strokeWidth={1.5} />
+          <span
+            key={i}
+            className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 ring-1 ring-primary/15"
+          >
+            <Users className="h-3.5 w-3.5 text-primary/70" strokeWidth={1.75} />
+          </span>
         ))}
       </div>
-      <span className="absolute left-1/2 top-3 -translate-x-1/2 text-[9px] font-semibold italic text-neutral-600 sm:text-[10px]">
+      <span className="absolute left-1/2 top-4 -translate-x-1/2 rounded-full border border-border bg-background px-2 py-0.5 text-[9px] font-bold italic text-muted-foreground shadow-sm sm:text-[10px]">
         Builders
       </span>
-      <span className="absolute bottom-3 left-1/2 -translate-x-1/2 text-[9px] font-semibold italic text-neutral-600 sm:text-[10px]">
+      <span className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-border bg-background px-2 py-0.5 text-[9px] font-bold italic text-muted-foreground shadow-sm sm:text-[10px]">
         Home Owners
       </span>
     </div>
