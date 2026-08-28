@@ -13,17 +13,17 @@ import flashpointsImg from "@/assets/flashpoints.png";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Paints Precision Knowledge Enablement Pack — System Demos" },
+      { title: "Paints Retail Enablement System — System Demos" },
       {
         name: "description",
         content:
-          "Explore the Paints precision knowledge enablement pack: engagement, market discovery, counselling and more system demos in one place.",
+          "Explore the Paints retail enablement system: engagement, market discovery, counselling and more system demos in one place.",
       },
-      { property: "og:title", content: "Paints Precision Knowledge Enablement Pack — System Demos" },
+      { property: "og:title", content: "Paints Retail Enablement System — System Demos" },
       {
         property: "og:description",
         content:
-          "Explore the Paints precision knowledge enablement pack: engagement, market discovery, counselling and more system demos in one place.",
+          "Explore the Paints retail enablement system: engagement, market discovery, counselling and more system demos in one place.",
       },
     ],
   }),
@@ -32,14 +32,17 @@ export const Route = createFileRoute("/")({
 
 type System = {
   title: string;
+  usedBy: string;
   description: string;
   image?: string;
   link?: string;
+  comingSoon?: boolean;
 };
 
 const systems: System[] = [
   {
     title: "ME Retailer Engagement System",
+    usedBy: "Used by Marketing Executives with Retailers",
     description:
       "MEs use the app with each of their retailer for their day-to-day engagements as part of the field visits",
     image: meImg.url,
@@ -47,6 +50,7 @@ const systems: System[] = [
   },
   {
     title: "Market Discovery System",
+    usedBy: "Used by Demand Generators",
     description:
       "Front-line and market outreach teams use it to discover untapped markets and systematically reach out to them",
     image: marketImg.url,
@@ -54,14 +58,35 @@ const systems: System[] = [
   },
   {
     title: "Distributor / Retailer Business Counselling System",
+    usedBy: "Used by Sales Officers with large dealers",
     description:
       "Help businesses unlock their growth potential by identifying and adopting the practices that best fit their aspirations and customer needs",
     image: counsellingImg.url,
     link: "https://bpcl-ro-counsellingtool.lovable.app/",
   },
-  { title: "Retailer Best Practices System", description: "Coming soon", image: bestPracticesImg },
-  { title: "Scalable Coaching System", description: "Coming soon", image: scalableCoachingImg },
-  { title: "Flashpoints Management System", description: "Coming soon", image: flashpointsImg },
+  {
+    title: "Retailer Best Practices System",
+    usedBy: "Used by small retailers for their business",
+    description: "For the Retailers/Dealers to adopt best practices harvested from top retailer",
+    image: bestPracticesImg,
+    link: "https://cscbusinesstoolbox.illumine.in/",
+  },
+  {
+    title: "Scalable Coaching System",
+    usedBy: "Used by Area Sales Managers with their sales teams",
+    description:
+      "For ASM/TSMs to have coaching dialogue with their Sales Teams to address persistent challenges",
+    image: scalableCoachingImg,
+    comingSoon: true,
+  },
+  {
+    title: "Flashpoints Management System",
+    usedBy: "Used by sales executives",
+    description:
+      "For Sales Teams to deal with dynamic customer challenges real-time and share/access best practices of top sales officers across the network",
+    image: flashpointsImg,
+    comingSoon: true,
+  },
 ];
 
 type MapSystem = {
@@ -98,7 +123,7 @@ function Index() {
       <header className="shrink-0 text-center">
         <p className="text-lg font-medium uppercase tracking-[0.2em] text-primary">Paints</p>
         <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-          Precision Knowledge Enablement Pack
+          Retail Enablement System
         </h1>
 
         <ToggleGroup
@@ -332,8 +357,14 @@ function ProductView() {
   return (
     <section className="grid min-h-0 flex-1 grid-cols-2 grid-rows-3 gap-3 sm:grid-cols-3 sm:grid-rows-2 sm:gap-4">
       {systems.map((s) => {
+        const usedBy = (
+          <p className="line-clamp-1 shrink-0 text-center text-[10px] font-semibold uppercase tracking-wide text-primary sm:text-[11px]">
+            {s.usedBy}
+          </p>
+        );
+
         const inner = (
-          <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all group-hover:border-primary/40 group-hover:shadow-md">
+          <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all group-hover:border-primary/40 group-hover:shadow-md">
             <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-muted">
               {s.image ? (
                 <img
@@ -356,6 +387,11 @@ function ProductView() {
                 {s.description}
               </p>
               {s.link && <span className="mt-1 text-xs font-medium text-primary">Open demo →</span>}
+              {s.comingSoon && (
+                <span className="mt-1 w-fit rounded-full bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+                  Coming soon
+                </span>
+              )}
             </div>
           </div>
         );
@@ -366,12 +402,14 @@ function ProductView() {
             href={s.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="group block min-h-0"
+            className="group flex min-h-0 flex-col gap-1"
           >
+            {usedBy}
             {inner}
           </a>
         ) : (
-          <div key={s.title} className="group min-h-0 cursor-default opacity-60">
+          <div key={s.title} className="group flex min-h-0 flex-col gap-1 cursor-default opacity-60">
+            {usedBy}
             {inner}
           </div>
         );
