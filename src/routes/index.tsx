@@ -9,13 +9,13 @@ import flashpointsImg from "@/assets/flashpoints.png";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Paints Retail Enablement System — System Demos" },
+      { title: "Retailer Enablement System for Paints — System Demos" },
       {
         name: "description",
         content:
           "Explore the Paints retail enablement system: engagement, market discovery, counselling and more system demos in one place.",
       },
-      { property: "og:title", content: "Paints Retail Enablement System — System Demos" },
+      { property: "og:title", content: "Retailer Enablement System for Paints — System Demos" },
       {
         property: "og:description",
         content:
@@ -89,10 +89,10 @@ function Index() {
   return (
     <main className="flex h-screen flex-col gap-4 overflow-hidden bg-background p-4 sm:p-6">
       <header className="shrink-0 text-center">
-        <p className="text-lg font-medium uppercase tracking-[0.2em] text-primary">Paints</p>
         <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-          Retail Enablement System
+          Retailer Enablement System
         </h1>
+        <p className="text-lg font-medium uppercase tracking-[0.2em] text-primary">For Paints</p>
         <p className="text-xs text-muted-foreground">Select a system to open its demo</p>
       </header>
 
