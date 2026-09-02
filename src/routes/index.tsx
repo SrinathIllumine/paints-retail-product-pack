@@ -38,7 +38,7 @@ type System = {
 const systems: System[] = [
   {
     title: "ME Retailer Engagement System",
-    usedBy: "Used by Marketing Executives with Retailers",
+    usedBy: "For Marketing Executives to engage with Retailers",
     description:
       "MEs use the app with each of their retailer for their day-to-day engagements as part of the field visits",
     image: meImg.url,
@@ -46,7 +46,7 @@ const systems: System[] = [
   },
   {
     title: "Market Discovery System",
-    usedBy: "Used by Demand Generators",
+    usedBy: "For Demand Generators",
     description:
       "Front-line and market outreach teams use it to discover untapped markets and systematically reach out to them",
     image: marketImg.url,
@@ -54,7 +54,7 @@ const systems: System[] = [
   },
   {
     title: "Distributor / Retailer Business Counselling System",
-    usedBy: "Used by Sales Officers with large dealers",
+    usedBy: "For Sales Officers to consult large dealers",
     description:
       "Help businesses unlock their growth potential by identifying and adopting the practices that best fit their aspirations and customer needs",
     image: counsellingImg.url,
@@ -62,14 +62,14 @@ const systems: System[] = [
   },
   {
     title: "Retailer Best Practices System",
-    usedBy: "Used by small retailers for their business",
-    description: "For the Retailers/Dealers to adopt best practices harvested from top retailer",
+    usedBy: "For Retailers/ Mom & Pop Stores to improve their business practices",
+    description: "For the Retailers/Dealers to adopt best practices harvested from top retailers",
     image: bestPracticesImg,
     link: "https://cscbusinesstoolbox.illumine.in/",
   },
   {
     title: "Scalable Coaching System",
-    usedBy: "Used by Area Sales Managers with their sales teams",
+    usedBy: "For Area Sales Managers to coach their sales teams",
     description:
       "For ASM/TSMs to have coaching dialogue with their Sales Teams to address persistent challenges",
     image: scalableCoachingImg,
@@ -77,7 +77,7 @@ const systems: System[] = [
   },
   {
     title: "Flashpoints Management System",
-    usedBy: "Used by sales executives",
+    usedBy: "For sales executives to handle customer challenges",
     description:
       "For Sales Teams to deal with dynamic customer challenges real-time and share/access best practices of top sales officers across the network",
     image: flashpointsImg,
